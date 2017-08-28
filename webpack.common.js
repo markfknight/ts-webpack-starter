@@ -11,38 +11,21 @@ module.exports = {
       app: path.resolve(__dirname, 'src', 'index.ts')
     },
     module: {
-      loaders: [
+      rules: [
         {
           test: /\.tsx?$/,
           include: path.resolve(__dirname, 'src'),
-          loader: 'awesome-typescript-loader'
-        },
-        {
-          test: /\.css$/,
-          include: path.resolve(__dirname, 'src'),
-          loaders: [
-            'style-loader',
-            'css-loader'
-          ]
-        },
-        {
-          test: /\.s[ac]ss$/,
-          include: path.resolve(__dirname, 'src'),
-          loaders: [
-            'style-loader',
-            'css-loader',
-            'sass-loader?sourceMap=true'
-          ]
+          use: 'awesome-typescript-loader'
         },
         {
           test: /\.(png|svg|jpg|jpeg|gif)$/,
           include: path.resolve(__dirname, 'src'),
-          loader: 'file-loader'
+          use: 'file-loader'
         },
         {
           test: /\.(woff|woff2|eot|ttf|otf)$/,
           include: path.resolve(__dirname, 'src'),
-          loader: 'file-loader'
+          use: 'file-loader'
         }
       ]
     },
@@ -54,7 +37,7 @@ module.exports = {
         'dist'
       ]),
       new HtmlWebpackPlugin({
-        title: 'Reactive Snake'
+        title: 'TS Webpack Starter'
       }),
       new webpack.optimize.CommonsChunkPlugin({
         names: [
