@@ -9,3 +9,8 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 ### Changed
 
 ### Removed
+
+## [1.0.0] 2017-09-27
+### Changed
+updated packages @markfknight
+corrected package JSON details @markfknight
