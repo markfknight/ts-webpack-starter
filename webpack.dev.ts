@@ -1,10 +1,9 @@
-const path = require('path');
-const webpack = require('webpack');
-// const { CheckerPlugin } = require('awesome-typescript-loader'); // enable for async
-const merge = require('webpack-merge');
-const common = require('./webpack.common.js');
+import path from 'path';
+import webpack from 'webpack';
+import merge from 'webpack-merge';
+import commonConfig from './webpack.common';
 
-module.exports = merge(common , {
+const devConfig: webpack.Configuration = merge(commonConfig, {
   devtool: 'source-map',
   devServer: {
     contentBase: path.resolve(__dirname, 'dist'),
@@ -41,4 +40,6 @@ module.exports = merge(common , {
     chunkFilename: '[name].chunkbundle.js',
     path: path.resolve(__dirname, 'dist')
   }
-})
+});
+
+export default devConfig;

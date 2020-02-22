@@ -1,11 +1,11 @@
-const path = require('path');
-const webpack = require('webpack');
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
-const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
-const merge = require('webpack-merge');
-const common = require('./webpack.common.js');
+import path from 'path';
+import webpack from 'webpack';
+import merge from 'webpack-merge';
+import commonConfig from './webpack.common';
+import ExtractTextPlugin from "extract-text-webpack-plugin";
+import UglifyJSPlugin from 'uglifyjs-webpack-plugin';
 
-module.exports = merge(common, {
+const prodConfig: webpack.Configuration = merge(commonConfig, {
   devtool: 'cheap-module-source-map',
   module: {
     rules: [
@@ -31,12 +31,6 @@ module.exports = merge(common, {
     new ExtractTextPlugin({
       filename: 'style.[chuckhash].css'
     }),
-    new UglifyJSPlugin({
-      uglifyOptions: {
-        ecma: 6,
-        include: path.resolve(__dirname, 'src'),
-      }
-    }),
     new webpack.HashedModuleIdsPlugin(),
     new webpack.DefinePlugin({
       'process.env': {
@@ -44,9 +38,16 @@ module.exports = merge(common, {
       }
     })
   ],
+  optimization: {
+    minimizer: [new UglifyJSPlugin({
+      include: /\/src/
+    })]
+  },
   output: {
     filename: '[name].[chunkhash].js',
     chunkFilename: '[name].[chuckhash].js',
     path: path.resolve(__dirname, 'dist')
   }
 });
+
+export default prodConfig;
