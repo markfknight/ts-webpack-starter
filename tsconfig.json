@@ -1,18 +1,14 @@
 {
   "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
     "rootDir": "./src/",
     "sourceMap": true,
     "strict": true,
-    "target": "es2015",
-    "module": "es2015",
+    "target": "es5",
+    "module": "commonjs",
     "jsx": "react",
-    "lib": ["es2015", "es2016", "dom"],
-    "typeRoots": [
-      "./node_modules/@types/"
-    ],
-    "plugins": [
-      { "name": "tslint-language-service" }
-    ]
+    "lib": ["es2020", "dom"],
   },
   "exclude": [
     "node_modules",
