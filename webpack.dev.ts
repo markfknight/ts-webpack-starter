@@ -2,8 +2,10 @@ import path from 'path';
 import webpack from 'webpack';
 import merge from 'webpack-merge';
 import commonConfig from './webpack.common';
+import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 
 const devConfig: webpack.Configuration = merge(commonConfig, {
+  mode: 'development',
   devtool: 'source-map',
   devServer: {
     contentBase: path.resolve(__dirname, 'dist'),
@@ -12,26 +14,26 @@ const devConfig: webpack.Configuration = merge(commonConfig, {
   module: {
     rules: [
       {
-        test: /\.css$/,
-        include: path.resolve(__dirname, 'src'),
+        test: /\.(sa|sc|c)ss$/,
         use: [
-          'style-loader',
-          'css-loader'
-        ]
-      },
-      {
-        test: /\.s[ac]ss$/,
-        include: path.resolve(__dirname, 'src'),
-        use: [
-          'style-loader',
+          {
+            loader: MiniCssExtractPlugin.loader,
+            options: {
+              hmr: true
+            },
+          },
           'css-loader',
+          'postcss-loader',
           'sass-loader?sourceMap=true'
         ]
       }
-    ],
+    ]
   },
   plugins: [
-    // new CheckerPlugin(), // enable for TS async debug
+    new MiniCssExtractPlugin({
+      chunkFilename: '[id].css',
+      filename: '[name].css',
+    }),
     new webpack.NamedModulesPlugin(),
     new webpack.HotModuleReplacementPlugin()
   ],

@@ -11,12 +11,24 @@ const commonConfig: webpack.Configuration = {
     // ],
     app: path.resolve(__dirname, 'src', 'index.ts')
   },
+  target: "web",
   module: {
     rules: [
       {
+        enforce: "pre",
+        test: /\.(ts|tsx)$/,
+        exclude: /node_modules/,
+        use: "eslint-loader"
+      },
+      {
         test: /\.tsx?$/,
         include: path.resolve(__dirname, 'src'),
-        use: 'ts-loader'
+        use: {
+          loader: "ts-loader",
+          options: {
+              "transpileOnly": true
+          }
+        }
       },
       {
         test: /\.(png|svg|jpg|jpeg|gif)$/,

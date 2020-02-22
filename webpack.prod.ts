@@ -2,34 +2,34 @@ import path from 'path';
 import webpack from 'webpack';
 import merge from 'webpack-merge';
 import commonConfig from './webpack.common';
-import ExtractTextPlugin from "extract-text-webpack-plugin";
+import MiniCssExtractPlugin  from "mini-css-extract-plugin";
 import UglifyJSPlugin from 'uglifyjs-webpack-plugin';
 
 const prodConfig: webpack.Configuration = merge(commonConfig, {
+  mode: 'production',
   devtool: 'cheap-module-source-map',
   module: {
     rules: [
       {
-        test: /\.css$/,
-        use: ExtractTextPlugin.extract({
-          fallback: "style-loader",
-          use: "css-loader"
-        })
-      },
-      {
-        test: /\.s[ac]ss$/,
-        include: path.resolve(__dirname, 'src'),
-        use: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          //resolve-url-loader may be chained before sass-loader if necessary
-          use: ['css-loader', 'sass-loader']
-        })
+        test: /\.(sa|sc|c)ss$/,
+        use: [
+          {
+            loader: MiniCssExtractPlugin.loader,
+            options: {
+              hmr: false
+            },
+          },
+          'css-loader',
+          'postcss-loader',
+          'sass-loader'
+        ]
       }
     ]
   },
   plugins: [
-    new ExtractTextPlugin({
-      filename: 'style.[chuckhash].css'
+    new MiniCssExtractPlugin({
+      chunkFilename: '[id].[chunkhash].css',
+      filename: '[name].[chunkhash].css',
     }),
     new webpack.HashedModuleIdsPlugin(),
     new webpack.DefinePlugin({
@@ -39,13 +39,15 @@ const prodConfig: webpack.Configuration = merge(commonConfig, {
     })
   ],
   optimization: {
-    minimizer: [new UglifyJSPlugin({
-      include: /\/src/
-    })]
+    minimizer: [
+      new UglifyJSPlugin({
+        include: /\/src/
+      })
+    ]
   },
   output: {
     filename: '[name].[chunkhash].js',
-    chunkFilename: '[name].[chuckhash].js',
+    chunkFilename: '[id].[chuckhash].js',
     path: path.resolve(__dirname, 'dist')
   }
 });
