@@ -3,15 +3,13 @@
     "rootDir": "./src/",
     "sourceMap": true,
     "strict": true,
-    "target": "es2015",
+    "target": "es2020",
     "module": "es2015",
     "jsx": "react",
-    "lib": ["es2015", "es2016", "dom"],
+    "lib": ["es2020", "dom"],
     "typeRoots": [
-      "./node_modules/@types/"
     ],
     "plugins": [
-      { "name": "tslint-language-service" }
     ]
   },
   "exclude": [

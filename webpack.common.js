@@ -15,7 +15,7 @@ module.exports = {
         {
           test: /\.tsx?$/,
           include: path.resolve(__dirname, 'src'),
-          use: 'awesome-typescript-loader'
+          use: 'ts-loader'
         },
         {
           test: /\.(png|svg|jpg|jpeg|gif)$/,
