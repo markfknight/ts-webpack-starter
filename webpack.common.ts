@@ -1,8 +1,7 @@
 import path from 'path';
 import webpack from 'webpack';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
-// const CleanWebpackPlugin = require('clean-webpack-plugin');
-// import { CleanWebpackPlugin } from 'clean-webpack-plugin';
+import { CleanWebpackPlugin } from 'clean-webpack-plugin';
 
 const commonConfig: webpack.Configuration = {
   entry: {
@@ -46,9 +45,7 @@ const commonConfig: webpack.Configuration = {
     extensions: ['.tsx', '.ts', '.js', 'jsx']
   },
   plugins: [
-    // new CleanWebpackPlugin([
-    //   'dist'
-    // ]),
+    new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
       title: 'TS Webpack Starter'
     }),
