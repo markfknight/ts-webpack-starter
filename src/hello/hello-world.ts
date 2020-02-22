@@ -1,5 +1,5 @@
-export module HelloWorld {
-  export function Hello(): string {
+export class HelloWorld {
+  get hello(): string {
     return 'Hello World!!!';
-  };
+  }
 }

@@ -9,4 +9,4 @@ if (process.env.NODE_DEV !== 'production') {
   }
 }
 
-console.log(HelloWorld.Hello);
+console.log(new HelloWorld().hello);
